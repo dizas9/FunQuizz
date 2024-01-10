@@ -113,7 +113,7 @@ export default function QuizTest() {
   const secondHalf = questionWithShuffledOption?.slice(5) || [];
 
   return (
-    <div className="mt-24 lg:mt-44 flex flex-col">
+    <div className="mt-32 lg:mt-44 flex flex-col">
       <div className="flex items-center justify-center fixed bottom-0 bg-black p-1 rounded-full lg:w-52 lg:h-52">
         <p className="text-sm lg:text-2xl font-thin lg:font-semibold lg:flex lg:flex-col gap-2 lg:items-center">
           Time remaining{" "}
