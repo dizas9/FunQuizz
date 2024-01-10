@@ -1,16 +1,20 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import MainPage from "./Pages/MainPage";
+import QuizTest from "./Pages/QuizTest";
+import TimeoutPage from "./Pages/TimeoutPage";
+import ResultPage from "./Pages/ResultPage";
 
-function App() {
-  const [count, setCount] = useState(0);
 
+export default function App() {
   return (
     <>
-      <p className="text-red-400 font-bold">Hello0</p>
+      <Routes>
+        <Route path="/" exact element={<MainPage />} />
+        <Route path="/test" element={<QuizTest />} />
+        <Route path="/timeout" element={<TimeoutPage />} />
+        <Route path="/result" element={<ResultPage />} />
+      </Routes>
     </>
   );
 }
-
-export default App;
