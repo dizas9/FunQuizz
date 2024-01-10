@@ -18,7 +18,7 @@ const QUESTION_KEY = "questionWithShuffledOption";
 export default function QuizTest() {
   // State for timer and questions
   const [timeRemaining, setTimeRemaining] = useState(
-    () => parseInt(localStorage.getItem(STORAGE_KEY)) || 10 * 60
+    () => parseInt(localStorage.getItem(STORAGE_KEY)) || 2 * 60
   );
   const [questionWithShuffledOption, setQuestionWithShuffledOption] = useState(
     () => {
@@ -113,16 +113,24 @@ export default function QuizTest() {
   const secondHalf = questionWithShuffledOption?.slice(5) || [];
 
   return (
-    <div className="mt-24 lg:mt-32 flex flex-col">
-      <div>
-        Time remaining: {String(minutes).padStart(2, "0")}:
-        {String(seconds).padStart(2, "0")}
+    <div className="mt-24 lg:mt-44 flex flex-col">
+      <div className="flex items-center justify-center fixed bottom-0 bg-black p-1 rounded-full lg:w-52 lg:h-52">
+        <p className="text-sm lg:text-2xl font-thin lg:font-semibold lg:flex lg:flex-col gap-2 lg:items-center">
+          Time remaining{" "}
+          <span className="text-red-800 font-josefin text-lg lg:text-4xl font-bold">
+            {String(minutes).padStart(2, "0")}:
+            {String(seconds).padStart(2, "0")}
+          </span>
+        </p>
       </div>
 
       {timeRemaining ? (
-        <form onSubmit={handleSubmit} className="flex flex-col border-2 m-5 lg:m-24">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col border-2 m-5 lg:mx-36 lg:rounded-[5rem] rounded-[2rem] items-center py-2 lg:py-5"
+        >
           <div
-            className="flex flex-col lg:flex-row  h-fit p-10 lg:p-20"
+            className="flex flex-col lg:flex-row  h-fit p-10 lg:px-24"
             style={{ display: "flex" }}
           >
             <div style={{ flex: 1 }} className="flex flex-col gap-4">
@@ -152,14 +160,14 @@ export default function QuizTest() {
                 </div>
               ))}
             </div>
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1 }} className="flex flex-col gap-4">
               {secondHalf.map((question, questionIndex) => (
-                <div key={questionIndex}>
-                  <p>
+                <div key={questionIndex} className="flex flex-col gap-2">
+                  <p className="font-josefin text-xl text-yellow-300">
                     {questionIndex + 6} :{question.question}
                   </p>
                   {question.options.map((option, optionIndex) => (
-                    <div key={optionIndex}>
+                    <div key={optionIndex} className="flex w-fit gap-1">
                       <input
                         type="radio"
                         value={option}
@@ -172,6 +180,7 @@ export default function QuizTest() {
                         htmlFor={`question_${
                           questionIndex + 5
                         }_option_${optionIndex}`}
+                        className="font-josefin text-base"
                       >
                         {option}
                       </label>
@@ -181,7 +190,12 @@ export default function QuizTest() {
               ))}
             </div>
           </div>
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            className="bg-gray-900 px-8 py-2 w-fit rounded-3xl lg:text-[#DDE6ED]"
+          >
+            Submit
+          </button>
         </form>
       ) : null}
     </div>

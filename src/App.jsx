@@ -8,9 +8,9 @@ import ResultPage from "./Pages/ResultPage";
 
 export default function App() {
   return (
-    <body className="bg-[#3E3232] w-screen h-fit text-[#FAF0E6] font-Noto">
+    <body className="bg-[#3E3232] w-screen text-[#FAF0E6] font-Noto">
       <div className="flex justify-center flex-col items-center">
-        <div className="bg-[#3E3232] py-5 flex flex-col items-center fixed w-screen top-0">
+        <div className="bg-[#3E3232] py-10 flex flex-col items-center fixed w-screen top-0">
           <p className="font-stalin text-3xl lg:text-5xl text-[#F5E8C7]">
             FunQuizz
           </p>

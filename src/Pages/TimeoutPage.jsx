@@ -25,9 +25,14 @@ export default function TimeoutPage() {
     }
   }, [fromTimeOut, Navigate]);
   return (
-    <div className="">
-      Ops timeout!!!!!
-      <button onClick={Back} className="font-josefin font-[500]">Try Again</button>
+    <div className="flex flex-col h-screen justify-center items-center gap-2">
+      <p className="text-2xl">Ops timeout!!!!! </p>
+      <button
+        onClick={Back}
+        className="bg-gray-900 px-8 py-2 w-fit rounded-3xl text-white"
+      >
+        Try Again
+      </button>
     </div>
   );
 }
