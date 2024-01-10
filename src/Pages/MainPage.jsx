@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Category, Difficulty } from "../Data/Data";
 
+
 /**
  * MainComponent represents the landing page of the "quizfun" application.
  * Users can select quiz category and dificulity level and start the quiz.
@@ -81,14 +82,20 @@ export default function MainPage() {
   // JSX Rendering
   return (
     <>
-      <div>
-        <form onSubmit={handleSearch}>
-          <label htmlFor="Category">Category : </label>
+      <div className="flex flex-col h-screen justify-center items-center ">
+        <form
+          onSubmit={handleSearch}
+          className="flex flex-col lg:flex-row lg:gap-10 gap-5 border-2 lg:border-none lg:bg-[#DDE6ED] lg:text-[#27374D] p-10 lg:p-5 rounded-2xl lg:items-center"
+        >
+          <label htmlFor="Category" className="lg:text-xl">
+            Category{" "}
+          </label>
           <select
             name="Category"
             id="Category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
+            className="bg-slate-800 lg:bg-[#526D82] lg:text-xl font-Noto p-2 rounded-lg lg:text-[#DDE6ED]"
           >
             {Category.map((cat, catIndex) => (
               <option value={cat.id} key={catIndex}>
@@ -96,12 +103,15 @@ export default function MainPage() {
               </option>
             ))}
           </select>
-          <label htmlFor="Dificality">Dificality : </label>
+          <label htmlFor="Dificality" className="lg:text-xl">
+            Dificality{" "}
+          </label>
           <select
             name="Dificality"
             id="Dificality"
             value={Dificulity}
             onChange={(e) => setDeficulity(e.target.value)}
+            className="bg-slate-800 lg:bg-[#526D82] lg:text-xl font-Noto p-2 rounded-lg lg:text-[#DDE6ED]"
           >
             {Difficulty.map((diff, diffIndex) => (
               <option value={diff.Name} key={diffIndex}>
@@ -109,7 +119,12 @@ export default function MainPage() {
               </option>
             ))}
           </select>
-          <button type="submit">Start</button>
+          <button
+            type="submit"
+            className="bg-gray-900 px-8 py-2 w-fit rounded-3xl lg:text-[#DDE6ED]"
+          >
+            Start
+          </button>
         </form>
 
         {Loading && <p>Loading...</p>}

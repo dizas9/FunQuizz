@@ -10,6 +10,7 @@
 
 import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import "../App.css";
 
 export default function TimeoutPage() {
   const Navigate = useNavigate();
@@ -24,9 +25,9 @@ export default function TimeoutPage() {
     }
   }, [fromTimeOut, Navigate]);
   return (
-    <div>
+    <div className="">
       Ops timeout!!!!!
-      <button onClick={Back}>Try Again</button>
+      <button onClick={Back} className="font-josefin font-[500]">Try Again</button>
     </div>
   );
 }

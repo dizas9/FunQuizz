@@ -18,7 +18,7 @@ const QUESTION_KEY = "questionWithShuffledOption";
 export default function QuizTest() {
   // State for timer and questions
   const [timeRemaining, setTimeRemaining] = useState(
-    () => parseInt(localStorage.getItem(STORAGE_KEY)) || 9
+    () => parseInt(localStorage.getItem(STORAGE_KEY)) || 10 * 60
   );
   const [questionWithShuffledOption, setQuestionWithShuffledOption] = useState(
     () => {
@@ -113,36 +113,42 @@ export default function QuizTest() {
   const secondHalf = questionWithShuffledOption?.slice(5) || [];
 
   return (
-    <div>
+    <div className="mt-24 lg:mt-32 flex flex-col">
       <div>
         Time remaining: {String(minutes).padStart(2, "0")}:
         {String(seconds).padStart(2, "0")}
       </div>
 
       {timeRemaining ? (
-        <form onSubmit={handleSubmit}>
-          <div style={{ display: "flex" }}>
-            <div style={{ flex: 1 }}>
+        <form onSubmit={handleSubmit} className="flex flex-col border-2 m-5 lg:m-24">
+          <div
+            className="flex flex-col lg:flex-row  h-fit p-10 lg:p-20"
+            style={{ display: "flex" }}
+          >
+            <div style={{ flex: 1 }} className="flex flex-col gap-4">
               {firstHalf.map((question, questionIndex) => (
-                <div key={questionIndex}>
-                  <p>
-                    {questionIndex + 1} :{question.question}
+                <div key={questionIndex} className="flex flex-col gap-2">
+                  <p className="font-josefin text-xl text-yellow-300">
+                    {questionIndex + 1} : {question.question}
                   </p>
-                  {question.options.map((option, optionIndex) => (
-                    <div key={optionIndex}>
-                      <input
-                        type="radio"
-                        value={option}
-                        name={`question_${questionIndex}`}
-                        id={`question_${questionIndex}_option_${optionIndex}`}
-                      />
-                      <label
-                        htmlFor={`question_${questionIndex}_option_${optionIndex}`}
-                      >
-                        {option}
-                      </label>
-                    </div>
-                  ))}
+                  <div className="">
+                    {question.options.map((option, optionIndex) => (
+                      <div key={optionIndex} className="flex w-fit gap-1">
+                        <input
+                          type="radio"
+                          value={option}
+                          name={`question_${questionIndex}`}
+                          id={`question_${questionIndex}_option_${optionIndex}`}
+                        />
+                        <label
+                          htmlFor={`question_${questionIndex}_option_${optionIndex}`}
+                          className="font-josefin text-base"
+                        >
+                          {option}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
