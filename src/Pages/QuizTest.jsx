@@ -27,7 +27,7 @@ export default function QuizTest() {
         return storedValue ? JSON.parse(storedValue) : null;
       } catch (error) {
         console.error("Error parsing stored JSON:", error);
-        return null;
+        return nu
       }
     }
   );
