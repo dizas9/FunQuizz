@@ -6,7 +6,12 @@ const mongoose = require("mongoose");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://localhost:5000"],
+    credentials: true,
+  })
+);
 
 const URI = process.env.URI;
 

@@ -34,7 +34,7 @@ export default function Register() {
             email: "",
             password: "",
           });
-          // navigate("/login");
+          navigate("/login");
           console.log(res);
         }
       })

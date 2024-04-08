@@ -22,17 +22,50 @@ router.post("/register", async (req, res) => {
     await user.save();
 
     //jwt
-    const payload = {
-      user: { id: user.id },
-    };
-    jwt.sign(payload, "jwt-token", { expiresIn: 3600 }, (err, token) => {
-      if (err) throw err;
-      return res.json(token);
-    });
+    // const payload = {
+    //   user: { id: user.id },
+    // };
+    // jwt.sign(payload, "jwt-token", { expiresIn: 3600 }, (err, token) => {
+    //   if (err) throw err;
+    //   return res.json(token);
+    // });
 
     return res.status(200).json({ message: "Registration successful" });
   } catch (error) {
     return res.status(500).send("server error");
+  }
+});
+
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    // check User exists
+    if (!user) {
+      return res.status(400).json({ message: "User Not Found" });
+    }
+
+    //check password matches
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatch) {
+      return res.status(401).json({ message: "Wrong Password" });
+    }
+
+    // Generate JWT token
+    const payload = {
+      user: { id: user.id },
+    };
+
+    jwt.sign(payload, "jwtSecret", { expiresIn: 3600 }, (err, token) => {
+      if (err) throw err;
+      return res.json(token);
+    });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send("Server Error");
   }
 });
 

@@ -7,6 +7,7 @@ import ResultPage from "./Pages/ResultPage";
 import Register from "./Pages/Register";
 import Header from "./components/Header";
 import User from "./components/User";
+import Login from "./Pages/login";
 
 export default function App() {
   return (
@@ -18,10 +19,11 @@ export default function App() {
         <div className="w-full">
           <Header />
         </div>
-        <div className="mt-32 lg:mt-36">
+        <div className="mt-32 lg:mt-28">
           <Routes>
             <Route path="/" exact element={<MainPage />} />
             <Route path="/register" exact element={<Register />} />
+            <Route path="/login" exact element={<Login />} />
             <Route path="/test" element={<QuizTest />} />
             <Route path="/timeout" element={<TimeoutPage />} />
             <Route path="/result" element={<ResultPage />} />
