@@ -4,28 +4,31 @@ import MainPage from "./Pages/MainPage";
 import QuizTest from "./Pages/QuizTest";
 import TimeoutPage from "./Pages/TimeoutPage";
 import ResultPage from "./Pages/ResultPage";
-
+import Register from "./Pages/Register";
+import Header from "./components/Header";
+import User from "./components/User";
 
 export default function App() {
   return (
-    <body className="bg-[#3E3232] w-screen text-[#FAF0E6] font-Noto">
-      <div className="flex justify-center flex-col items-center">
-        <div className="bg-[#3E3232] py-10 flex flex-col items-center fixed w-screen top-0">
-          <p className="font-stalin text-3xl lg:text-5xl text-[#F5E8C7]">
-            FunQuizz
-          </p>
-          <p className="font-[100] text-sm lg:text-[1.2rem] text-yellow-300 lg:pt-5">
-            Quiz, Learn, Thrive, Repeat, Enjoy
-          </p>
+    <>
+      <div className="w-full flex flex-col items-center justify-start  h-screen bg-[#3E3232]">
+        <div className="w-full h-fit py-2 px-2">
+          <User />
+        </div>
+        <div className="w-full">
+          <Header />
+        </div>
+        <div className="mt-32 lg:mt-36">
+          <Routes>
+            <Route path="/" exact element={<MainPage />} />
+            <Route path="/register" exact element={<Register />} />
+            <Route path="/test" element={<QuizTest />} />
+            <Route path="/timeout" element={<TimeoutPage />} />
+            <Route path="/result" element={<ResultPage />} />
+          </Routes>
         </div>
       </div>
-      <Routes>
-        <Route path="/" exact element={<MainPage />} />
-        <Route path="/test" element={<QuizTest />} />
-        <Route path="/timeout" element={<TimeoutPage />} />
-        <Route path="/result" element={<ResultPage />} />
-      </Routes>
-    </body>
+    </>
   );
 }
 

@@ -82,7 +82,7 @@ export default function MainPage() {
   // JSX Rendering
   return (
     <>
-      <div className="flex flex-col h-screen justify-center items-center ">
+      <div className="flex flex-col justify-center items-center ">
         <form
           onSubmit={handleSearch}
           className="flex flex-col lg:flex-row lg:gap-10 gap-5 border-2 lg:border-none lg:bg-[#DDE6ED] lg:text-[#27374D] p-10 lg:p-5 rounded-2xl lg:items-center"
