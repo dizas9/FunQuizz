@@ -113,7 +113,7 @@ export default function QuizTest() {
   const secondHalf = questionWithShuffledOption?.slice(5) || [];
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-[#3E3232]">
       <div className="flex items-center justify-center fixed bottom-0 bg-black p-1 rounded-full lg:w-52 lg:h-52">
         <p className="text-sm lg:text-2xl font-thin lg:font-semibold lg:flex lg:flex-col gap-2 lg:items-center">
           Time remaining{" "}
@@ -127,13 +127,16 @@ export default function QuizTest() {
       {timeRemaining ? (
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col border-2 m-5 lg:mx-36 lg:rounded-[5rem] rounded-[2rem] items-center py-2 lg:py-5"
+          className="flex flex-col border-2 m-5 lg:mx-36 lg:rounded-[5rem] rounded-[2rem] items-center py-2 lg:py-5 bg-[#3E3232]"
         >
           <div
             className="flex flex-col lg:flex-row  h-fit p-10 lg:px-24"
             style={{ display: "flex" }}
           >
-            <div style={{ flex: 1 }} className="flex flex-col gap-4">
+            <div
+              style={{ flex: 1 }}
+              className="flex flex-col gap-4 bg-[#3E3232]"
+            >
               {firstHalf.map((question, questionIndex) => (
                 <div key={questionIndex} className="flex flex-col gap-2">
                   <p className="font-josefin text-xl text-yellow-300">
@@ -160,9 +163,15 @@ export default function QuizTest() {
                 </div>
               ))}
             </div>
-            <div style={{ flex: 1 }} className="flex flex-col gap-4">
+            <div
+              style={{ flex: 1 }}
+              className="flex flex-col gap-4 bg-[#3E3232]"
+            >
               {secondHalf.map((question, questionIndex) => (
-                <div key={questionIndex} className="flex flex-col gap-2">
+                <div
+                  key={questionIndex}
+                  className="flex flex-col gap-2 bg-[#3E3232]"
+                >
                   <p className="font-josefin text-xl text-yellow-300">
                     {questionIndex + 6} :{question.question}
                   </p>

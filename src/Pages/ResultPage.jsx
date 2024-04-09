@@ -32,7 +32,7 @@ export default function ResultPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen justify-center items-center gap-2">
+    <div className="flex flex-col justify-center items-center gap-2">
       <p className="text-2xl">You scored {score} out of 10</p>
       <button
         onClick={handleTryAgain}

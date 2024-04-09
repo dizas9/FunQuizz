@@ -25,7 +25,7 @@ export default function TimeoutPage() {
     }
   }, [fromTimeOut, Navigate]);
   return (
-    <div className="flex flex-col h-screen justify-center items-center gap-2">
+    <div className="flex flex-col justify-center items-center gap-2">
       <p className="text-2xl">Ops timeout!!!!! </p>
       <button
         onClick={Back}

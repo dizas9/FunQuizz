@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Category, Difficulty } from "../Data/Data";
-
+import useIsAuth from "../hooks/AuthCheck";
+import User from "../components/User";
 
 /**
  * MainComponent represents the landing page of the "quizfun" application.
@@ -19,7 +20,7 @@ export default function MainPage() {
 
   // React Router Navigate Hook
   const Navigate = useNavigate();
-
+  const { auth } = useIsAuth();
   /**
    * Processes fetched data and navigates based on results.
    *
@@ -82,6 +83,14 @@ export default function MainPage() {
   // JSX Rendering
   return (
     <>
+      {auth === false && <User />}
+      {auth !== false && (
+        <Link to={"/login"}>
+          <button className=" bg-red-500 font-Noto rounded-md h-[4vh] lg:h-[6vh] text-white px-2 text-sm absolute right-2 top-2">
+            Profile
+          </button>
+        </Link>
+      )}
       <div className="flex flex-col justify-center items-center ">
         <form
           onSubmit={handleSearch}
