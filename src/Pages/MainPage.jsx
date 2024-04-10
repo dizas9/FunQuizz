@@ -21,6 +21,9 @@ export default function MainPage() {
   // React Router Navigate Hook
   const Navigate = useNavigate();
   const { auth } = useIsAuth();
+
+   
+
   /**
    * Processes fetched data and navigates based on results.
    *
@@ -83,11 +86,16 @@ export default function MainPage() {
   // JSX Rendering
   return (
     <>
-      {auth === false && <User />}
-      {auth !== false && (
-        <Link to={"/login"}>
-          <button className=" bg-red-500 font-Noto rounded-md h-[4vh] lg:h-[6vh] text-white px-2 text-sm absolute right-2 top-2">
+      {auth ? (
+        <Link to="/dashboard">
+          <button className="bg-red-500 font-Noto rounded-md h-[4vh] lg:h-[6vh] text-white px-2 text-sm absolute right-2 top-2">
             Profile
+          </button>
+        </Link>
+      ) : (
+        <Link to="/login">
+          <button className="bg-red-500 font-Noto rounded-md h-[4vh] lg:h-[6vh] text-white px-2 text-sm absolute right-2 top-2">
+            Login
           </button>
         </Link>
       )}

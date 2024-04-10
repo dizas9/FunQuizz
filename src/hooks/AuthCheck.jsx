@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { DEV_URL } from "../API";
 
 export default function useIsAuth() {
-  const [auth, setAuth] = useState(false);
-
+  const [auth, setAuth] = useState(undefined);
+  
   useEffect(() => {
     const isAuth = () => {
       const token = localStorage.getItem("token");

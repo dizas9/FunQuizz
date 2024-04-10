@@ -70,7 +70,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/authChecker", async (req, res) => {
-  console.log(req.token);
+  
   const token = req.header("x-auth-token");
   if (!token) {
     return res
@@ -84,7 +84,7 @@ router.get("/authChecker", async (req, res) => {
     return res.status(200).json({ valid: true, msg: "Token verified" });
   } catch (error) {
     console.error(error.message);
-    return res.status(500).send("Server Error");
+   return res.status(401).json({ valid: false, msg: "Invalid token" });
   }
 });
 

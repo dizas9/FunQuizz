@@ -58,65 +58,59 @@ export default function Login() {
 
   return (
     <>
-      <>
-        {auth || (
-          <>
-            <div className="bg-gray-600 text-yellow-200 font-josefin font-bold text-center">
-              *Wrong Credential !
-            </div>
-            <form
-              className="w-[80vw] lg:w-[40vw] h-fit bg-yellow-950 p-5"
-              onSubmit={handleSubmit}
-            >
-              <p className="text-center text-white font-Noto font-semibold mb-2">
-                Log in
-              </p>
-              <div className="w-full h-fit flex flex-col py-2 px-1 gap-1 lg:gap-3">
-                <label htmlFor="email" className="text-yellow-300 font-Noto">
-                  Email address
-                </label>
-                <input
-                  type="text"
-                  name="email"
-                  value={email}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      [e.target.name]: e.target.value,
-                    })
-                  }
-                  className="outline-double outline-blue-200 rounded-sm h-[4vh] lg:h-[6vh] bg-[#3E3232]"
-                />
-              </div>
+      <div className="bg-gray-600 text-yellow-200 font-josefin font-bold text-center">
+        *Wrong Credential !
+      </div>
+      <form
+        className="w-[80vw] lg:w-[40vw] h-fit bg-yellow-950 p-5"
+        onSubmit={handleSubmit}
+      >
+        <p className="text-center text-white font-Noto font-semibold mb-2">
+          Log in
+        </p>
+        <div className="w-full h-fit flex flex-col py-2 px-1 gap-1 lg:gap-3">
+          <label htmlFor="email" className="text-yellow-300 font-Noto">
+            Email address
+          </label>
+          <input
+            type="text"
+            name="email"
+            value={email}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                [e.target.name]: e.target.value,
+              })
+            }
+            className="outline-double outline-blue-200 rounded-sm h-[4vh] lg:h-[6vh] bg-[#3E3232]"
+          />
+        </div>
 
-              <div className="w-full h-fit flex flex-col py-2 px-1 gap-1 lg:gap-3">
-                <label htmlFor="email" className="text-yellow-300 font-Noto">
-                  Password
-                </label>
-                <input
-                  type="text"
-                  name="password"
-                  value={password}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      [e.target.name]: e.target.value,
-                    })
-                  }
-                  className="outline-double outline-blue-200 rounded-sm h-[4vh] lg:h-[6vh] bg-[#3E3232]"
-                />
-              </div>
+        <div className="w-full h-fit flex flex-col py-2 px-1 gap-1 lg:gap-3">
+          <label htmlFor="email" className="text-yellow-300 font-Noto">
+            Password
+          </label>
+          <input
+            type="text"
+            name="password"
+            value={password}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                [e.target.name]: e.target.value,
+              })
+            }
+            className="outline-double outline-blue-200 rounded-sm h-[4vh] lg:h-[6vh] bg-[#3E3232]"
+          />
+        </div>
 
-              <button
-                className="w-full bg-red-500 font-Noto rounded-sm h-[4vh] lg:h-[6vh] mt-2 text-white"
-                type="submit"
-              >
-                Log in
-              </button>
-            </form>
-          </>
-        )}
-      </>
+        <button
+          className="w-full bg-red-500 font-Noto rounded-sm h-[4vh] lg:h-[6vh] mt-2 text-white"
+          type="submit"
+        >
+          Log in
+        </button>
+      </form>
     </>
   );
 }
