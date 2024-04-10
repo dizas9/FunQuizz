@@ -20,8 +20,10 @@ export default function Login() {
   // const { auth } = useIsAuth();
 
   useEffect(() => {
-    if (location) {
+    if (location.state) {
       setSuccessMsg(location.state.msg);
+    }else{
+      setSuccessMsg("");
     }
   }, [location]);
 

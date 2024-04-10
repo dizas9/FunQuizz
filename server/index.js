@@ -25,7 +25,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use("/api/user", require("./Routes/AuthUser"));
-app.use("/api/profile", require("./Routes/Account"));
+app.use("/api/account", require("./Routes/Account"));
 
 app.listen(5000, () => {
   console.log("listening on 5000");
