@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { DEV_URL } from "../API";
 import useIsAuth from "../hooks/AuthCheck";
 
@@ -11,9 +11,26 @@ export default function Login() {
   });
   const [errMsg, setErrMsg] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [timer, setTimer] = useState(true);
+  const [successMsg, setSuccessMsg] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log("locLogin", location);
 
-  const { auth } = useIsAuth();
+  // const { auth } = useIsAuth();
+
+  useEffect(() => {
+    if (location) {
+      setSuccessMsg(location.state.msg);
+    }
+  }, [location]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setTimer(false);
+    }, 2000);
+  }, []);
+
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
@@ -58,9 +75,17 @@ export default function Login() {
 
   return (
     <>
-      <div className="bg-gray-600 text-yellow-200 font-josefin font-bold text-center">
-        *Wrong Credential !
-      </div>
+      {successMsg && timer && (
+        <div className="bg-gray-600 text-yellow-200 font-josefin font-bold text-center">
+          *{successMsg} !
+        </div>
+      )}
+      {errMsg && (
+        <div className="bg-gray-600 text-yellow-200 font-josefin font-bold text-center">
+          *{errMsg} !
+        </div>
+      )}
+
       <form
         className="w-[80vw] lg:w-[40vw] h-fit bg-yellow-950 p-5"
         onSubmit={handleSubmit}
@@ -102,6 +127,13 @@ export default function Login() {
             }
             className="outline-double outline-blue-200 rounded-sm h-[4vh] lg:h-[6vh] bg-[#3E3232]"
           />
+        </div>
+
+        <div className="font-Noto text-red-500">
+          No account?{" "}
+          <Link to={"/register"} className="text-blue-800 underline">
+            Register
+          </Link>
         </div>
 
         <button

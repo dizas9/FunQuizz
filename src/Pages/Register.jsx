@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DEV_URL } from "../API";
 import axios from "axios";
 
@@ -18,8 +18,6 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
 
-    
-
     // send Post request to server
     axios
       .post(`${DEV_URL}/api/user/register`, JSON.stringify(formData), {
@@ -34,7 +32,7 @@ export default function Register() {
             email: "",
             password: "",
           });
-          navigate("/login");
+          navigate("/login", { state: { msg: res.data.message } });
           console.log(res);
         }
       })
@@ -46,18 +44,23 @@ export default function Register() {
         ) {
           setErrorMsg(error.response.data.message);
           setLoading(false);
+          setErrorMsg(error.response.data.message);
         } else {
           console.error(error);
           setLoading(false);
+          setErrorMsg(error);
         }
       });
   }
 
   return (
     <>
-      <div className="bg-gray-600 text-yellow-200 font-josefin font-bold text-center">
-        *User already exist !
-      </div>
+      {errorMsg && (
+        <div className="bg-gray-600 text-yellow-200 font-josefin font-bold text-center">
+          * {errorMsg}!
+        </div>
+      )}
+
       <form
         className="w-[80vw] lg:w-[40vw] h-fit bg-yellow-950 p-5"
         onSubmit={handleSubmit}
@@ -93,6 +96,13 @@ export default function Register() {
             }
             className="outline-double outline-blue-200 rounded-sm h-[4vh] lg:h-[6vh] bg-[#3E3232]"
           />
+        </div>
+
+        <div className="font-Noto text-red-500">
+          Already have an account?{" "}
+          <Link to={"/login"} className="text-blue-800 underline">
+            Login
+          </Link>
         </div>
 
         <button

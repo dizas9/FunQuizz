@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route,Navigate } from "react-router-dom";
 import MainPage from "./Pages/MainPage";
 import QuizTest from "./Pages/QuizTest";
 import TimeoutPage from "./Pages/TimeoutPage";
 import ResultPage from "./Pages/ResultPage";
 import Register from "./Pages/Register";
 import Header from "./components/Header";
-import User from "./components/User";
 import Login from "./Pages/login";
 import useIsAuth from "./hooks/AuthCheck";
 import Dashboard from "./Pages/Dashboard";
 import PrivateRoute from "./components/protected";
 
 export default function App() {
+  const { auth } = useIsAuth();
   return (
     <>
       <div className="w-full flex flex-col items-center justify-start  h-screen bg-[#3E3232]">
@@ -25,7 +25,7 @@ export default function App() {
             <Route path="/register" element={<Register />} />
             <Route
               path="/login"
-              element={<Login /> }
+              element={auth ? <Navigate to={"/"} /> : <Login />}
             />
             <Route
               path="/dashboard"

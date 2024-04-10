@@ -5,6 +5,9 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
+//blacklist array for invlid token
+const blacklistedTokens = [];
+
 router.post("/register", async (req, res) => {
   const { email, password } = req.body;
 
@@ -21,16 +24,7 @@ router.post("/register", async (req, res) => {
 
     await user.save();
 
-    //jwt
-    // const payload = {
-    //   user: { id: user.id },
-    // };
-    // jwt.sign(payload, "jwt-token", { expiresIn: 3600 }, (err, token) => {
-    //   if (err) throw err;
-    //   return res.json(token);
-    // });
-
-    return res.status(200).json({ message: "Registration successful" });
+    return res.status(200).json({ message: "Registration successful . Please Login" });
   } catch (error) {
     return res.status(500).send("server error");
   }
@@ -59,7 +53,7 @@ router.post("/login", async (req, res) => {
       user: { id: user.id },
     };
 
-    jwt.sign(payload, "jwtSecret", { expiresIn: 3600 }, (err, token) => {
+    jwt.sign(payload, "jwtSecret", { expiresIn: 30 }, (err, token) => {
       if (err) throw err;
       return res.status(200).json({ token });
     });
@@ -69,8 +63,24 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//logout
+router.post("/logout", async (req, res) => {
+  const token = req.header("x-auth-token");
+  if (!token) {
+    return res.status(401).json({ msg: "No token provided" });
+  }
+
+  try {
+    // Add the token to the blacklist
+    blacklistedTokens.push(token);
+    return res.status(200).json({ msg: "Logout successful" });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send("Server Error");
+  }
+});
+
 router.get("/authChecker", async (req, res) => {
-  
   const token = req.header("x-auth-token");
   if (!token) {
     return res
@@ -78,13 +88,16 @@ router.get("/authChecker", async (req, res) => {
       .json({ valid: false, msg: "No token, Authorization denied" });
   }
   try {
+    if (blacklistedTokens.includes(token)) {
+      return res.status(401).json({ valid: false, msg: "Token revoked" });
+    }
     const decoded = jwt.verify(token, "jwtSecret");
 
     // If token is valid, send success response
     return res.status(200).json({ valid: true, msg: "Token verified" });
   } catch (error) {
     console.error(error.message);
-   return res.status(401).json({ valid: false, msg: "Invalid token" });
+    return res.status(401).json({ valid: false, msg: "Invalid token" });
   }
 });
 
