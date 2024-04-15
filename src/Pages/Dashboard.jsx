@@ -39,22 +39,26 @@ export default function Dashboard() {
   useEffect(() => {
     userFetch()
       .then((data) => {
-        setUserData(data);
+        setUserData(data.user);
       })
       .catch((err) => {
         setErr(err);
       });
   }, []);
 
-  const { user, profile } = userData || {};
-  const { firstname, lastname, email } = user || {}
-  const { image } = profile || {};
-  console.log("userData", typeof image);
+  const { image, firstname } = userData;
+  console.log("userData", userData.image);
 
   return (
     <>
       <div className=" w-[90%]">
-        <UploadProfileImage avater={image} />
+        <div className="flex flex-col gap-2 items-center ">
+          <img
+            src={`${DEV_URL}/images/${image}`}
+            alt=""
+            className="w-20 border-2 rounded-full p-1"
+          />
+        </div>
       </div>
       <div className="bg-[#c6c6d931] w-[90%] h-fit flex flex-col p-2 rounded-md shadow-sm shadow-black">
         <div className="p-2 flex w-full">

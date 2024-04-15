@@ -4,47 +4,39 @@ import { FaRegEdit } from "react-icons/fa";
 import { DEV_URL } from "../API";
 
 export default function UploadProfileImage({ avater }) {
-  const [formData, setFormData] = useState({
-    image: "",
-  });
-  const [img, setImg] = useState(
-    "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-  );
+  const [img, setImg] = useState();
   const [click, setClick] = useState(false);
   const [uploadMsg, setUploadMsg] = useState("");
   const fileInputRef = useRef(null);
 
-  function handleImgUpload(e) {
-    e.preventDefault();
-    setUploadMsg("Image Uploading");
-    const formDataSend = new FormData();
-    formDataSend.append("image", fileInputRef.current.files[0]);
-    const token = localStorage.getItem("token");
+  // function handleImgUpload(e) {
+  //   e.preventDefault();
+  //   setUploadMsg("Image Uploading");
+  //   const formDataSend = new FormData();
+  //   formDataSend.append("image", fileInputRef.current.files[0]);
 
-    axios
-      .post(`${DEV_URL}/api/user/imageUpload`, formDataSend, {
-        headers: { "x-auth-token": token },
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          setUploadMsg("Image Upload Success");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        setUploadMsg("Try again");
-      });
-  }
+  //   axios
+  //     .post(`${DEV_URL}/api/user/imageUpload`, formDataSend)
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         navigate("/login", { state: { msg: res.data.message } });
+  //         setUploadMsg("Image Upload Success");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       setUploadMsg("Try again");
+  //     });
+  // }
 
-  function handleEditButtonClick() {
-    fileInputRef.current.click();
-    setClick(true);
-  }
-  function handleSubmit(e) {
-    setClick(false);
-    handleImgUpload(e);
-  }
+  // function handleEditButtonClick() {
+  //   fileInputRef.current.click();
+  //   setClick(true);
+  // }
+  // function handleSubmit(e) {
+  //   setClick(false);
+  //   handleImgUpload(e);
+  // }
 
   useEffect(() => {
     setImg(avater);
@@ -54,11 +46,11 @@ export default function UploadProfileImage({ avater }) {
     <>
       <div className="flex flex-col gap-2 items-center ">
         <img
-          src={`${DEV_URL}/images/${img}` || img}
+          src={`${DEV_URL}/images/${img}`}
           alt=""
           className="w-20 border-2 rounded-full p-1"
         />
-        <form onSubmit={handleSubmit} className="flex items-center gap-2">
+        {/* <form onSubmit={handleSubmit} className="flex items-center gap-2">
           <label htmlFor="file-upload" className="relative cursor-pointer">
             <input
               type="file"
@@ -94,7 +86,7 @@ export default function UploadProfileImage({ avater }) {
             </>
           )}
           <p className="">{uploadMsg}</p>
-        </form>
+        </form> */}
       </div>
     </>
   );

@@ -28,8 +28,10 @@ const upload = multer({ storage: storage });
 //blacklist array for invlid token
 const blacklistedTokens = [];
 
-router.post("/register", async (req, res) => {
-  const { firstname, lastname, email, password } = req.body;
+router.post("/register", upload.single("image"), async (req, res) => {
+  const { firstname, lastname, email, password, gender, age, school, bio } =
+    req.body;
+    const image = req.file ? req.file.filename : null;
 
   try {
     //check user if exists
@@ -37,7 +39,17 @@ router.post("/register", async (req, res) => {
     if (user) {
       return res.status(400).json({ message: "User Already Exists" });
     }
-    user = new User({ firstname, lastname, email, password });
+    user = new User({
+      firstname,
+      lastname,
+      email,
+      password,
+      gender,
+      age,
+      school,
+      bio,
+      image
+    });
     //hashed password
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
@@ -53,36 +65,29 @@ router.post("/register", async (req, res) => {
 });
 
 //upload image
-router.post("/imageUpload", upload.single("image"), async (req, res) => {
-  const image = req.file ? req.file.filename : null;
+// router.post("/imageUpload", upload.single("image"), async (req, res) => {
+//   const image = req.file ? req.file.filename : null;
+ 
 
-  const token = req.header("x-auth-token");
-  if (!token) {
-    return res.status(401).json({ message: "No token provided" });
-  }
+//   try {
+//     const user = await User.findById(req.user.id);
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+//     // Check if the user already has a profile
+//     let avater = await ProfileData.findOne({ users: user._id });
 
-  try {
-    const decoded = jwt.verify(token, "jwtSecret");
-    // Check if user is authenticated
-
-    const user = await User.findById(decoded.user.id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    // Check if the user already has a profile
-    let avater = await ProfileData.findOne({ users: user._id });
-
-    // If the user doesn't have a profile, create one
-    if (!avater) {
-      avater = new ProfileData({ users: user._id });
-    }
-    avater.image = image;
-    await avater.save();
-    return res.status(200).json({ message: "Image Saved" });
-  } catch (error) {
-    return res.status(500).send("Server Error: " + error.message);
-  }
-});
+//     // If the user doesn't have a profile, create one
+//     if (!avater) {
+//       avater = new ProfileData({ users: user._id });
+//     }
+//     avater.image = image;
+//     await avater.save();
+//     return res.status(200).json({ message: "Image Saved" });
+//   } catch (error) {
+//     return res.status(500).send("Server Error: " + error.message);
+//   }
+// });
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;

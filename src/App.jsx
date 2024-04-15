@@ -10,6 +10,7 @@ import Login from "./Pages/login";
 import useIsAuth from "./hooks/AuthCheck";
 import Dashboard from "./Pages/Dashboard";
 import PrivateRoute from "./components/protected";
+import UploadProfileImage from "./components/UploadProfileImage";
 
 export default function App() {
   const { auth } = useIsAuth();
@@ -25,7 +26,7 @@ export default function App() {
             <Route path="/register" element={<Register />} />
             <Route
               path="/login"
-              element={auth ? <Navigate to={"/"} /> : <Login />}
+              element={<Login />}
             />
             <Route
               path="/dashboard"
@@ -35,7 +36,7 @@ export default function App() {
                 </PrivateRoute>
               }
             />
-
+            <Route path="/upload_image" element={<UploadProfileImage />} />
             <Route path="/test" element={<QuizTest />} />
             <Route path="/timeout" element={<TimeoutPage />} />
             <Route path="/result" element={<ResultPage />} />
