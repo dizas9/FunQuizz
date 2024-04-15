@@ -5,6 +5,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
+const Profile = require("../models/profile");
 
 router.get("/profile", async (req, res) => {
   // get token
@@ -19,13 +20,14 @@ router.get("/profile", async (req, res) => {
 
     //find User
     const user = await User.findById(decoded.user.id);
+    const profile = await Profile.findOne({ users: decoded.user.id });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
     // Return user profile
-    return res.status(200).json(user);
+    return res.status(200).json({ user, profile });
   } catch (error) {
     console.error(error.message);
     return res.status(500).send("Server Error");

@@ -19,7 +19,7 @@ export default function App() {
         <div className="w-full">
           <Header />
         </div>
-        <div className="mt-32 lg:mt-28">
+        <div className="mt-16 lg:mt-10 w-full flex flex-col items-center justify-center gap-2">
           <Routes>
             <Route path="/" exact element={<MainPage />} />
             <Route path="/register" element={<Register />} />

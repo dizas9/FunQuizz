@@ -5,13 +5,15 @@ import axios from "axios";
 
 export default function Register() {
   const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
     email: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(false);
   const navigate = useNavigate();
-  const { email, password } = formData;
+  const { firstname, lastname, email, password } = formData;
 
   //submission handlers
   async function handleSubmit(e) {
@@ -68,6 +70,37 @@ export default function Register() {
         <p className="text-center text-white font-Noto font-semibold mb-2">
           Add an account{" "}
         </p>
+
+        <div className="w-full h-fit flex flex-col py-2 px-1 gap-1 lg:gap-3">
+          <label htmlFor="email" className="text-yellow-300 font-Noto">
+            First Name
+          </label>
+          <input
+            type="text"
+            name="firstname"
+            value={firstname}
+            onChange={(e) =>
+              setFormData({ ...formData, [e.target.name]: e.target.value })
+            }
+            className="outline-double outline-blue-200 rounded-sm h-[4vh] lg:h-[6vh] bg-[#3E3232]"
+          />
+        </div>
+
+        <div className="w-full h-fit flex flex-col py-2 px-1 gap-1 lg:gap-3">
+          <label htmlFor="email" className="text-yellow-300 font-Noto">
+            Last Name
+          </label>
+          <input
+            type="text"
+            name="lastname"
+            value={lastname}
+            onChange={(e) =>
+              setFormData({ ...formData, [e.target.name]: e.target.value })
+            }
+            className="outline-double outline-blue-200 rounded-sm h-[4vh] lg:h-[6vh] bg-[#3E3232]"
+          />
+        </div>
+
         <div className="w-full h-fit flex flex-col py-2 px-1 gap-1 lg:gap-3">
           <label htmlFor="email" className="text-yellow-300 font-Noto">
             Email address
