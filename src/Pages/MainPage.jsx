@@ -22,8 +22,6 @@ export default function MainPage() {
   const Navigate = useNavigate();
   const { auth } = useIsAuth();
 
-   
-
   /**
    * Processes fetched data and navigates based on results.
    *
@@ -43,8 +41,8 @@ export default function MainPage() {
       }
 
       const data = await res.json();
-      console.log("API response:", res);
-      console.log("API data:", data);
+      // console.log("API response:", res);
+      // console.log("API data:", data);
 
       if (data.results && data.results.length > 0) {
         const QuestionWithShuffledOption = data.results.map((Quiz) => {
@@ -60,6 +58,7 @@ export default function MainPage() {
         setQuizQuestion(QuestionWithShuffledOption);
         Navigate("/test", {
           state: { QuestionWithShuffledOption, FromTest: true },
+          replace: true,
         });
       } else {
         Navigate("/notfound");

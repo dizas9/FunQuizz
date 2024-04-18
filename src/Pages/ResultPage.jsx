@@ -17,8 +17,9 @@ export default function ResultPage() {
 
   const { score, fromResult } = location.state || {
     score: 0,
-    fromResult: false,
+    fromResult: true,
   };
+ 
 
   useEffect(() => {
     if (!fromResult) {

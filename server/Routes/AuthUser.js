@@ -8,7 +8,6 @@ const path = require("path");
 // const verifyToken = require("../middlewires/VerifyToken");
 
 const User = require("../models/user");
-const ProfileData = require("../models/profile");
 
 //multer file upload middleware
 const storage = multer.diskStorage({

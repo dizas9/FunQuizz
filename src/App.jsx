@@ -11,6 +11,7 @@ import useIsAuth from "./hooks/AuthCheck";
 import Dashboard from "./Pages/Dashboard";
 import PrivateRoute from "./components/protected";
 import UploadProfileImage from "./components/UploadProfileImage";
+import ContestPage from "./BCSquizes/ContestPage";
 
 export default function App() {
   const { auth } = useIsAuth();
@@ -24,10 +25,7 @@ export default function App() {
           <Routes>
             <Route path="/" exact element={<MainPage />} />
             <Route path="/register" element={<Register />} />
-            <Route
-              path="/login"
-              element={<Login />}
-            />
+            <Route path="/login" element={<Login />} />
             <Route
               path="/dashboard"
               element={
@@ -40,6 +38,7 @@ export default function App() {
             <Route path="/test" element={<QuizTest />} />
             <Route path="/timeout" element={<TimeoutPage />} />
             <Route path="/result" element={<ResultPage />} />
+            <Route path="/contest" element={<ContestPage />} />
           </Routes>
         </div>
       </div>

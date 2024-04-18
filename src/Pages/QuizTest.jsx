@@ -27,7 +27,7 @@ export default function QuizTest() {
         return storedValue ? JSON.parse(storedValue) : null;
       } catch (error) {
         console.error("Error parsing stored JSON:", error);
-        return nu
+        return nu;
       }
     }
   );
@@ -61,7 +61,7 @@ export default function QuizTest() {
   // Effect for handling navigation back to the test
   useEffect(() => {
     if (FromTest) {
-      Navigate("/test");
+      Navigate("/test", {replace: true});
     }
   }, [FromTest, Navigate]);
 

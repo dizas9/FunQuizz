@@ -27,6 +27,7 @@ mongoose
 
 app.use("/api/user", require("./Routes/AuthUser"));
 app.use("/api/account", require("./Routes/Account"));
+app.use("/api/quiz", require("./Routes/QuizContest"));
 
 app.listen(5000, () => {
   console.log("listening on 5000");
