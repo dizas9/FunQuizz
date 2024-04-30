@@ -15,6 +15,7 @@ app.use(
       "http://localhost:4173",
       "https://fun-quizz-server.vercel.app",
       "https://funquizz.vercel.app",
+      "https://funquizz.onrender.com",
     ],
     credentials: true,
   })
