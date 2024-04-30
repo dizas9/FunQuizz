@@ -54,7 +54,7 @@ export default function Dashboard() {
       <div className=" w-[90%]">
         <div className="flex flex-col gap-2 items-center ">
           <img
-            src={`${DEV_URL}/images/${image}`}
+            src={`${DEV_URL}/public/images/${image}`}
             alt=""
             className="w-20 border-2 rounded-full p-1"
           />
