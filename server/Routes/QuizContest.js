@@ -73,12 +73,12 @@ router.get("/quizContest", isAuthenticated, async (req, res) => {
 router.post("/submitAnswer", isAuthenticated, async (req, res) => {
   try {
     const userId = req.user.id;
-    const { score, ID } = req.body;
+    const { scores, ID } = req.body;
     const db = await connectDB();
 
     let userScore = new ScoreData({
       userId,
-      score,
+      score: scores,
       contestID: ID,
     });
 
@@ -145,6 +145,19 @@ router.get("/contest_lists", async (req, res) => {
     res.status(200).json({
       schedule: contestsInfo,
     });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.get("/completed", isAuthenticated, async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const complete = await ScoreData.find({userId});
+
+    res.status(200).json({ complete: complete });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ message: "Internal server error" });

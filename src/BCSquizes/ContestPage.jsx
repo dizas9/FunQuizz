@@ -12,15 +12,15 @@ export default function ContestPage() {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [count, setCount] = useState(1);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [score, setScore] = useState(0);
+  const [scores, setScore] = useState(1);
   const [contestId, setContestId] = useState(" ");
-  // const [wrongIDX, setWrongIDX] = useState([]);
+
   const [wrongQA, setWrongQA] = useState([]);
-  const [shouldNavigate, setShouldNavigate] = useState(false);
+
   const { name } = useParams();
 
-  console.log(name);
-  console.log(contestId);
+  // console.log(name);
+  // console.log(contestId);
 
   const navigate = useNavigate();
 
@@ -88,7 +88,7 @@ export default function ContestPage() {
   const handleOptionChange = (option) => {
     const updatedSelectedOptions = [...selectedOptions];
     updatedSelectedOptions[currentQuestionIndex] = option;
-    console.log("score", updatedSelectedOptions);
+    // console.log("score", updatedSelectedOptions);
     setSelectedOptions(updatedSelectedOptions);
   };
 
@@ -108,38 +108,31 @@ export default function ContestPage() {
 
     let wrongQAS = wrongIdx.map((idx) => contestQuestion[idx]);
     setWrongQA(wrongQAS);
+
+     const token = localStorage.getItem("token");
+     const ID = contestId;
+
+     axios
+       .post(
+         `${DEV_URL}/api/quiz/submitAnswer`,
+         { scores: score, ID },
+         {
+           headers: { "x-auth-token": token },
+           withCredentials: true,
+         }
+       )
+       .then((response) => {
+         if (response.status === 200) {
+           navigate("/result", {
+             state: { score, wrongQAS, fromResult: true },
+           });
+         }
+       })
+       .catch((error) => {
+         console.log(error.response.data);
+       });
   }
 
-  const handleSubmit = async () => {
-    countScore();
-    const token = localStorage.getItem("token");
-    // const questionIds = contestQuestion.map((question) => question.id);
-    const ID = contestId;
-
-    axios
-      .post(
-        `${DEV_URL}/api/quiz/submitAnswer`,
-        { score, ID },
-        {
-          headers: { "x-auth-token": token },
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          setShouldNavigate(true);
-        }
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
-  };
-
-  useEffect(() => {
-    if (shouldNavigate) {
-      navigate("/result", { state: { score, wrongQA, fromResult: true } });
-    }
-  }, [shouldNavigate]);
 
   return (
     <>
@@ -195,7 +188,7 @@ export default function ContestPage() {
               {count === 10 && (
                 <button
                   className="bg-red-400 p-2 rounded-tr-full hover:text-blue-600  text-white rounded-br-full w-[49%] flex justify-center pt-3"
-                  onClick={handleSubmit}
+                  onClick={countScore}
                 >
                   <p className="font-bold">Submit</p>
                 </button>

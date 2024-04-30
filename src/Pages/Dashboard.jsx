@@ -47,7 +47,7 @@ export default function Dashboard() {
   }, []);
 
   const { image, firstname } = userData;
-  console.log("userData", userData.image);
+
 
   return (
     <>

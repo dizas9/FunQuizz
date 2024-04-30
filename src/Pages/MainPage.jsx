@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Category, Difficulty } from "../Data/Data";
 import useIsAuth from "../hooks/AuthCheck";
 import User from "../components/User";
 import Upcoming from "../components/Upcoming";
+import WarmUp from "../components/WarmUp";
+import { DEV_URL } from "../API";
+import { userFetch } from "../lib/FetchUser";
+import { BiUserCircle } from "react-icons/bi";
+import { FaUser } from "react-icons/fa";
 
 /**
  * MainComponent represents the landing page of the "quizfun" application.
@@ -18,7 +23,7 @@ export default function MainPage() {
   const [Loading, setLoading] = useState(false);
   const [category, setCategory] = useState(9);
   const [Dificulity, setDeficulity] = useState("easy");
-
+  const [userData, setUserData] = useState({});
   // React Router Navigate Hook
   const Navigate = useNavigate();
   const { auth } = useIsAuth();
@@ -83,28 +88,52 @@ export default function MainPage() {
     FetchQuestion(category, Dificulity);
   }
 
+    useEffect(() => {
+      userFetch()
+        .then((data) => {
+          setUserData(data.user);
+        })
+        .catch((err) => {
+          setErr(err);
+        });
+    }, []);
+
+    const { image, firstname} = userData;
+
   // JSX Rendering
   return (
     <>
       {auth ? (
         <Link to="/dashboard">
-          <button className="bg-red-500 font-Noto rounded-md h-[4vh] lg:h-[6vh] text-white px-2 text-sm absolute right-2 top-2">
-            Profile
-          </button>
+          <div className="absolute top-2 right-2 flex items-center gap-1">
+            <img
+              src={`${DEV_URL}/images/${image}`}
+              alt=""
+              className="lg:w-10 w-8 rounded-full p-1  shadow-black shadow-md"
+            />
+            <p className="font-Noto text-yellow-300 hidden">{firstname}</p>
+          </div>
         </Link>
       ) : (
         <Link to="/login">
-          <button className="bg-red-500 font-Noto rounded-md h-[4vh] lg:h-[6vh] text-white px-2 text-sm absolute right-2 top-2">
-            Login
+          <button className="px-2 absolute right-0 top-2">
+            <FaUser size={25} color="rgb(253 224 71)" />
           </button>
         </Link>
       )}
       <div className="flex flex-col-reverse lg:flex-col justify-center items-center w-full h-fit gap-5">
         <form
           onSubmit={handleSearch}
-          className="flex flex-col lg:flex-row lg:gap-10 gap-5 border-2 lg:border-none lg:bg-[#DDE6ED] lg:text-[#27374D] p-10 lg:p-5 rounded-2xl lg:items-center"
+          className="flex flex-col lg:flex-row lg:gap-10 gap-2 border lg:border-none lg:bg-[#DDE6ED] lg:text-[#27374D] p-5 rounded-2xl lg:items-center"
         >
-          <label htmlFor="Category" className="lg:text-xl">
+          <p className="text-center text-xl lg:text-2xl font-bold text-yellow-300 lg:text-gray-500">
+            Try Open Trivia
+          </p>
+          <hr />
+          <label
+            htmlFor="Category"
+            className="lg:text-xl text-slate-50 lg:text-gray-400"
+          >
             Category{" "}
           </label>
           <select
@@ -112,7 +141,7 @@ export default function MainPage() {
             id="Category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="bg-slate-800 lg:bg-[#526D82] lg:text-xl font-Noto p-2 rounded-lg lg:text-[#DDE6ED]"
+            className="bg-slate-800 lg:bg-[#526D82] lg:text-xl font-Noto p-2 rounded-lg lg:text-[#DDE6ED] text-slate-50"
           >
             {Category.map((cat, catIndex) => (
               <option value={cat.id} key={catIndex}>
@@ -120,7 +149,10 @@ export default function MainPage() {
               </option>
             ))}
           </select>
-          <label htmlFor="Dificality" className="lg:text-xl">
+          <label
+            htmlFor="Dificality"
+            className="lg:text-xl text-slate-50 lg:text-gray-400"
+          >
             Dificality{" "}
           </label>
           <select
@@ -128,7 +160,7 @@ export default function MainPage() {
             id="Dificality"
             value={Dificulity}
             onChange={(e) => setDeficulity(e.target.value)}
-            className="bg-slate-800 lg:bg-[#526D82] lg:text-xl font-Noto p-2 rounded-lg lg:text-[#DDE6ED]"
+            className="bg-slate-800 lg:bg-[#526D82] lg:text-xl font-Noto p-2 rounded-lg lg:text-[#DDE6ED] text-slate-50"
           >
             {Difficulty.map((diff, diffIndex) => (
               <option value={diff.Name} key={diffIndex}>
@@ -138,7 +170,7 @@ export default function MainPage() {
           </select>
           <button
             type="submit"
-            className="bg-gray-900 px-8 py-2 w-fit rounded-3xl lg:text-[#DDE6ED]"
+            className="bg-gray-900 px-8 py-2 w-fit rounded-3xl lg:text-[#DDE6ED] text-slate-50"
           >
             Start
           </button>
@@ -146,7 +178,27 @@ export default function MainPage() {
 
         <div className="flex lg:flex-row flex-col w-full ">
           <div className="w-full lg:w-1/2">
-            <Upcoming />
+            <Suspense
+              fallback={
+                <div className="text-mf font-Noto font-semibold">
+                  Loading...
+                </div>
+              }
+            >
+              <Upcoming />
+            </Suspense>
+          </div>
+
+          <div className="w-full lg:w-1/2">
+            <Suspense
+              fallback={
+                <div className="text-mf font-Noto font-semibold">
+                  Loading...
+                </div>
+              }
+            >
+              <WarmUp />
+            </Suspense>
           </div>
         </div>
         {Loading && <p>Loading...</p>}

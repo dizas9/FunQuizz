@@ -15,13 +15,13 @@ export default function ResultPage() {
   const location = useLocation();
   const Navigate = useNavigate();
 
-  const { score, wrongQA, fromResult } = location.state || {
+  const { score, wrongQAS, fromResult } = location.state || {
     score: 0,
     fromResult: true,
-    wrongQA: [],
+    wrongQAS: [],
   };
 
-  console.log(wrongQA);
+  console.log(wrongQAS);
 
   useEffect(() => {
     if (!fromResult) {
@@ -46,14 +46,14 @@ export default function ResultPage() {
         </button>
       </div>
 
-      {wrongQA && (
+      {wrongQAS && (
         <>
           <p className="text-xl font-bold text-slate-200 pb-2">
-            You have {wrongQA.length} wrong answer
+            You have {wrongQAS.length} wrong answer
           </p>
           <hr className=" h-0.5 mb-2" />
           <div className="lg:w-1/2 w-[80%] h-[50%] overflow-auto rounded-xl bg-slate-100 shadow-black shadow-lg p-5 font-josefin ">
-            {wrongQA.map((question, idx) => (
+            {wrongQAS.map((question, idx) => (
               <div className="gap-1" key={question.contestID}>
                 <p className="text-md font-semibold text-gray-500">
                   {idx + 1} . {question.question}
