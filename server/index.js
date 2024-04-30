@@ -13,6 +13,8 @@ app.use(
       "http://localhost:5173",
       "http://localhost:5000",
       "http://localhost:4173",
+      "https://fun-quizz-server.vercel.app",
+      "https://funquizz.vercel.app",
     ],
     credentials: true,
   })
