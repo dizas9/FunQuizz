@@ -15,11 +15,13 @@ export default function ResultPage() {
   const location = useLocation();
   const Navigate = useNavigate();
 
-  const { score, fromResult } = location.state || {
+  const { score, wrongQA, fromResult } = location.state || {
     score: 0,
     fromResult: true,
+    wrongQA: [],
   };
- 
+
+  console.log(wrongQA);
 
   useEffect(() => {
     if (!fromResult) {
@@ -33,14 +35,38 @@ export default function ResultPage() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center gap-2">
-      <p className="text-2xl">You scored {score} out of 10</p>
-      <button
-        onClick={handleTryAgain}
-        className="bg-gray-900 px-8 py-2 w-fit rounded-3xl text-white"
-      >
-        Try Again
-      </button>
+    <div className="flex flex-col justify-center items-center w-full  h-fit gap-5">
+      <div className="flex flex-col items-center gap-5">
+        <p className="text-2xl">You scored {score} out of 10</p>
+        <button
+          onClick={handleTryAgain}
+          className="bg-gray-900 px-8 py-2 w-fit rounded-3xl text-white"
+        >
+          Try Again
+        </button>
+      </div>
+
+      {wrongQA && (
+        <>
+          <p className="text-xl font-bold text-slate-200 pb-2">
+            You have {wrongQA.length} wrong answer
+          </p>
+          <hr className=" h-0.5 mb-2" />
+          <div className="lg:w-1/2 w-[80%] h-[50%] overflow-auto rounded-xl bg-slate-100 shadow-black shadow-lg p-5 font-josefin ">
+            {wrongQA.map((question, idx) => (
+              <div className="gap-1" key={question.contestID}>
+                <p className="text-md font-semibold text-gray-500">
+                  {idx + 1} . {question.question}
+                </p>
+                <p className="">
+                  <span className="text-md font-semibold">Correct: </span>
+                  {question.correctAnswers}
+                </p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

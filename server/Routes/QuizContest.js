@@ -1,7 +1,8 @@
 require("dotenv").config();
 
+const { v4: uuidv4 } = require("uuid");
 const express = require("express");
-const { MongoClient } = require("mongodb");
+const { MongoClient, UUID } = require("mongodb");
 const { ObjectId } = require("mongodb");
 
 const jwt = require("jsonwebtoken");
@@ -55,9 +56,12 @@ async function connectDB() {
 //get quizquestion for contests
 
 router.get("/quizContest", isAuthenticated, async (req, res) => {
+  const { collectionName } = req.query;
+  console.log(collectionName);
   try {
     const db = await connectDB();
-    const questions = await db.collection("question").find().toArray();
+    const questions = await db.collection(collectionName).find().toArray();
+
     res.json(questions);
   } catch (error) {
     console.error("Error:", error);
@@ -69,64 +73,81 @@ router.get("/quizContest", isAuthenticated, async (req, res) => {
 router.post("/submitAnswer", isAuthenticated, async (req, res) => {
   try {
     const userId = req.user.id;
-    const { questionIds, selectedOptions } = req.body;
+    const { score, ID } = req.body;
     const db = await connectDB();
-    // const objectId = new ObjectId();
-    
-    // Check if selectedOptions is defined and is an array
-    // if (!Array.isArray(selectedOptions)) {
-    //   return res
-    //     .status(400)
-    //     .json({ message: "selectedOptions must be an array" });
-    // }
-    // // Trim leading and trailing whitespace from selected options
-    // const trimmedSelectedOptions = selectedOptions.map((option) =>
-    //   option.trim()
-    // );
 
-    // Log the request body for debugging
+    let userScore = new ScoreData({
+      userId,
+      score,
+      contestID: ID,
+    });
 
-    // empty scoredata array
-    const scoresData = [];
+    await userScore.save();
 
-    // loop throw each question
-    for (let i = 0; i < questionIds.length; i++) {
-      const questionId = questionIds[i];
-      const selectedOption = selectedOptions[i]; // Use trimmedSelectedOptions
-
-      //fetch question from DB
-      const question = await db
-        .collection("question")
-        .findOne({ _id: new ObjectId(questionId) });
-
-      //check selected option is correct
-      const isCorrect = question.correctAnswer === selectedOption;
-
-      //prepare data to save "ScoreData"
-      const scoreData = new ScoreData({
-        userId: userId,
-        // quizContestID: question.quizContestID,
-        questionId: questionId,
-        selectedOption: selectedOption,
-        isCorrect: isCorrect,
-        score: isCorrect ? 1 : 0,
-        wrongAnswer: !isCorrect
-          ? {
-              question: question.question,
-              selectedOption,
-              correctAnswer: question.correctAnswer,
-            }
-          : null,
-      });
-
-      scoresData.push(scoreData);
-    }
-
-    await ScoreData.insertMany(scoresData);
     res.status(200).json({ message: "Answers submitted successfully" });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ message: "Internal server error", error: error });
+  }
+});
+
+//fetch Quiz Contest list
+router.get("/contest_lists", async (req, res) => {
+  console.log("its hit");
+  try {
+    const db = await connectDB();
+
+    const contests = await db.listCollections({}, { nameOnly: true }).toArray();
+    const targetCollection = contests
+      .map((collection) => collection.name)
+      .filter((name) => name.startsWith("APR"));
+
+    //find Contest Info
+    const contestsInfo = [];
+
+    for (let i = 0; i < targetCollection.length; i++) {
+      const contest = targetCollection[i];
+      const collections = await db.collection(contest).find().toArray();
+      const schedule = collections.map(
+        ({
+          month,
+          date,
+          day,
+          hour,
+          minute,
+          contestID,
+          DactiveMonth,
+          DactiveHr,
+          DactiveDate,
+          DactiveDay,
+        }) => ({
+          collectionName: contest,
+          month,
+          date,
+          day,
+          hour,
+          minute,
+          DactiveMonth,
+          DactiveHr,
+          DactiveDate,
+          DactiveDay,
+          contestID,
+        })
+      );
+
+      for (let j = 0; j < 1; j++) {
+        const info = schedule[j];
+
+        contestsInfo.push(info);
+      }
+    }
+
+    res.status(200).json({
+      schedule: contestsInfo,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 

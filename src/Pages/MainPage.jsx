@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Category, Difficulty } from "../Data/Data";
 import useIsAuth from "../hooks/AuthCheck";
 import User from "../components/User";
+import Upcoming from "../components/Upcoming";
 
 /**
  * MainComponent represents the landing page of the "quizfun" application.
@@ -98,7 +99,7 @@ export default function MainPage() {
           </button>
         </Link>
       )}
-      <div className="flex flex-col justify-center items-center ">
+      <div className="flex flex-col-reverse lg:flex-col justify-center items-center w-full h-fit gap-5">
         <form
           onSubmit={handleSearch}
           className="flex flex-col lg:flex-row lg:gap-10 gap-5 border-2 lg:border-none lg:bg-[#DDE6ED] lg:text-[#27374D] p-10 lg:p-5 rounded-2xl lg:items-center"
@@ -143,6 +144,11 @@ export default function MainPage() {
           </button>
         </form>
 
+        <div className="flex lg:flex-row flex-col w-full ">
+          <div className="w-full lg:w-1/2">
+            <Upcoming />
+          </div>
+        </div>
         {Loading && <p>Loading...</p>}
       </div>
     </>

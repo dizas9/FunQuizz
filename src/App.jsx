@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route,Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import MainPage from "./Pages/MainPage";
 import QuizTest from "./Pages/QuizTest";
 import TimeoutPage from "./Pages/TimeoutPage";
@@ -15,13 +15,16 @@ import ContestPage from "./BCSquizes/ContestPage";
 
 export default function App() {
   const { auth } = useIsAuth();
+  const location = useLocation();
+  const showHeader = location.pathname !== "/result";
   return (
     <>
       <div className="w-full flex flex-col items-center justify-start  h-screen bg-[#3E3232]">
         <div className="w-full">
-          <Header />
+          {/* Render Header if the route is not TimeoutPage */}
+          {showHeader && <Header />}
         </div>
-        <div className="mt-16 lg:mt-10 w-full flex flex-col items-center justify-center gap-2">
+        <div className="mt-16 lg:mt-10 w-full flex flex-col items-center justify-center gap-2 overflow-auto">
           <Routes>
             <Route path="/" exact element={<MainPage />} />
             <Route path="/register" element={<Register />} />
@@ -29,7 +32,7 @@ export default function App() {
             <Route
               path="/dashboard"
               element={
-                <PrivateRoute>
+                <PrivateRoute message="Session expire or Register">
                   <Dashboard />
                 </PrivateRoute>
               }
@@ -38,7 +41,17 @@ export default function App() {
             <Route path="/test" element={<QuizTest />} />
             <Route path="/timeout" element={<TimeoutPage />} />
             <Route path="/result" element={<ResultPage />} />
-            <Route path="/contest" element={<ContestPage />} />
+
+            <Route
+              path="/contest/:name"
+              element={
+                <PrivateRoute
+                  message={"You need Login or Register to perticipate quiz"}
+                >
+                  <ContestPage />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </div>
       </div>

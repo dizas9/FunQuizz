@@ -15,7 +15,6 @@ export default function Login() {
   const [successMsg, setSuccessMsg] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("locLogin", location);
 
   // const { auth } = useIsAuth();
 
@@ -30,7 +29,7 @@ export default function Login() {
   useEffect(() => {
     setTimeout(() => {
       setTimer(false);
-    }, 2000);
+    }, 5000);
   }, []);
 
   async function handleSubmit(e) {
@@ -78,12 +77,12 @@ export default function Login() {
   return (
     <>
       {successMsg && timer && (
-        <div className="bg-gray-600 text-yellow-200 font-josefin font-bold text-center">
+        <div className="bg-gray-600 text-yellow-200 font-josefin font-bold text-center text-xl">
           *{successMsg} !
         </div>
       )}
       {errMsg && (
-        <div className="bg-gray-600 text-yellow-200 font-josefin font-bold text-center">
+        <div className="bg-gray-600 text-yellow-200 font-josefin font-bold text-center text-xl">
           *{errMsg} !
         </div>
       )}

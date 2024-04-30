@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { DEV_URL } from "../API";
 import axios from "axios";
 
-export default function PrivateRoute({ children }) {
+export default function PrivateRoute({ children, message }) {
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -37,5 +37,9 @@ export default function PrivateRoute({ children }) {
     return <div>Loading...</div>;
   }
 
-  return auth ? children : <Navigate to="/login" />;
+  return auth ? (
+    children
+  ) : (
+    <Navigate to="/login" state={message ? { msg: message } : undefined} />
+  );
 }
