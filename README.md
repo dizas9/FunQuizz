@@ -50,7 +50,7 @@
 
 ## Tech Stack
 
-- **Framework/Library:** [React.js 14](https://react.dev/)
+- **Framework/Library:** [React.js 18](https://react.dev/)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
 - **Database:** [MongoDB Atlas (cloud)](https://cloud.mongodb.com)
 - **Authentication:** [JWT based](https://jwt.io/)
