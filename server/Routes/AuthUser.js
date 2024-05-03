@@ -10,9 +10,11 @@ const path = require("path");
 const User = require("../models/user");
 
 //multer file upload middleware
+
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/images");
+    cb(null, path.join(__dirname, "public", "images"));
   },
   filename: (req, file, cb) => {
     cb(

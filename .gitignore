@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 server/node_modules/
 server/.env
+src/API.jsx
 dist
 dist-ssr
 *.local

@@ -28,6 +28,7 @@ mongoose
   .then(() => console.log("Database connection established"))
   .catch((err) => console.log(err));
 
+app.use("/public/images", express.static("Routes/public/images"));
 app.use("/api/user", require("./Routes/AuthUser"));
 app.use("/api/account", require("./Routes/Account"));
 app.use("/api/quiz", require("./Routes/QuizContest"));

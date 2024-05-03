@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import { BiBell } from "react-icons/bi";
 import { DEV_URL } from "../API";
 import axios from "axios";
-// import Time from "../lib/Time";
+
 import { Link } from "react-router-dom";
 
 export default function Upcoming() {
   const [upcomingContest, setUpcomingContests] = useState([]);
   const [joinContest, setJoinContest] = useState(false);
- const [isCompleted, setIsCompleted] = useState({});
+
+  const [isCompleted, setIsCompleted] = useState({});
 
   // console.log(upcomingContest);
-  console.log(isCompleted);
+
 
   useEffect(() => {
     const fetchData = () => {
@@ -67,97 +68,111 @@ export default function Upcoming() {
     return () => clearInterval(intervalId);
   }, [joinContest]);
 
- useEffect(() => {
-   const token = localStorage.getItem("token");
-   const isComplete = async () => {
-     try {
-       const res = await axios.get(`${DEV_URL}/api/quiz/completed`, {
-         headers: {
-           "x-auth-token": token,
-         },
-         withCredentials: true,
-       });
-       if (res.status === 200) {
-         const completedContestIds = res.data.complete.map(
-           (contest) => contest.contestID
-         );
-         const completedContests = {};
-         for (const contest of completedContestIds) {
-           completedContests[contest] = true;
-         }
-         setIsCompleted(completedContests);
-       }
-     } catch (error) {
-       console.error(error);
-     }
-   };
-   isComplete();
- }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const isComplete = async () => {
+      try {
+        const res = await axios.get(`${DEV_URL}/api/quiz/completed`, {
+          headers: {
+            "x-auth-token": token,
+          },
+          withCredentials: true,
+        });
+        if (res.status === 200) {
+          const completedContestIds = res.data.complete.map(
+            (contest) => contest.contestID
+          );
+          const completedContests = {};
+          for (const contest of completedContestIds) {
+            completedContests[contest] = true;
+          }
+          setIsCompleted(completedContests);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    isComplete();
+  }, []);
 
+ 
 
- return (
-   <div className="flex flex-col h-fit items-center">
-     <p className="lg:text-2xl text-xl font-semibold text-slate-100 font-Noto lg:my-2 ">
-       This week upcoming contests
-     </p>
-     <hr className="bg-slate-50 lg:w-3/4 w-1/2 my-2 " />
+  return (
+    <div className="flex flex-col h-fit items-center">
+      <p className="lg:text-2xl text-xl font-semibold text-slate-100 font-josefin lg:my-2 ">
+        This week upcoming contests
+      </p>
+      <hr className="bg-slate-50 lg:w-3/4 w-1/2 my-2 " />
 
-     {/* Contest Card */}
-     {upcomingContest.map((item) => (
-       <div
-         className="lg:w-1/2 w-3/4 bg-slate-200 m-2 h-fit flex flex-col rounded-md shadow-black shadow-md"
-         key={item.contestID}
-       >
-         <div className="px-1 pt-1 flex justify-between items-center">
-           <p className="text-xl font-Noto text-gray-700 font-bold">
-             {item.collectionName}
-           </p>
-           <p className="text-sm font-light">01:30:00 left</p>
-         </div>
-         <div className="px-1 font-Noto text-gray-700">
-           <span className="font-bold">
-             {joinContest[item.contestID] ? <>Status : </> : <>Time : </>}
-           </span>
-           {joinContest[item.contestID] ? (
-             <span className="font-normal text-gray-500">Ongoing</span>
-           ) : (
-             <span className="font-normal">
-               {item.month} {item.date}, {item.day},{" "}
-               {parseInt(item.hour, 10) > 12
-                 ? parseInt(item.hour, 10) - 12
-                 : item.hour}
-               :{item.minute} PM
-             </span>
-           )}
-         </div>
-         <div className="px-1 pb-1 font-Noto text-gray-500 flex justify-between  items-center">
-           <p className="text-sm">
-             <span className="font-bold">Topic : </span>
-             <span className="">mixed</span>
-           </p>
+      {upcomingContest.length === 0 ? (
+        <>
+          <div className="animate-pulse lg:w-1/2 w-3/4 bg-slate-600 m-2 h-24 flex flex-col rounded-md  items-center py-2 gap-2">
+            <p className="w-[90%] h-7 bg-slate-500 animate-pulse"></p>
+            <p className="w-[90%] h-7 bg-slate-500 animate-pulse"></p>
+          </div>
+          <div className="animate-pulse lg:w-1/2 w-3/4 bg-slate-600 m-2 h-24 flex flex-col rounded-md  items-center py-2 gap-2">
+            <p className="w-[90%] h-7 bg-slate-500 animate-pulse"></p>
+            <p className="w-[90%] h-7 bg-slate-500 animate-pulse"></p>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
+      {/* Contest Card */}
+      {upcomingContest.map((item) => (
+        <div
+          className="lg:w-1/2 w-3/4 bg-slate-200 m-2 h-fit flex flex-col rounded-md shadow-black shadow-md"
+          key={item.contestID}
+        >
+          <div className="px-1 pt-1 flex justify-between items-center">
+            <p className="text-xl font-Noto text-gray-700 font-bold">
+              {item.collectionName}
+            </p>
+            <p className="text-sm font-light">01:30:00 left</p>
+          </div>
+          <div className="px-1 font-Noto text-gray-700">
+            <span className="font-bold">
+              {joinContest[item.contestID] ? <>Status : </> : <>Time : </>}
+            </span>
+            {joinContest[item.contestID] ? (
+              <span className="font-normal text-gray-500">Ongoing</span>
+            ) : (
+              <span className="font-normal">
+                {item.month} {item.date}, {item.day},{" "}
+                {parseInt(item.hour, 10) > 12
+                  ? parseInt(item.hour, 10) - 12
+                  : item.hour}
+                :{item.minute} PM
+              </span>
+            )}
+          </div>
+          <div className="px-1 pb-1 font-Noto text-gray-500 flex justify-between  items-center">
+            <p className="text-sm">
+              <span className="font-bold">Topic : </span>
+              <span className="">mixed</span>
+            </p>
 
-           <div className="flex gap-2">
-             <button className="font-Noto bg-slate-600 p-1 text-white rounded-md ">
-               <BiBell size={20} />
-             </button>
+            <div className="flex gap-2">
+              <button className="font-Noto bg-slate-600 p-1 text-white rounded-md ">
+                <BiBell size={20} />
+              </button>
 
-             {(!isCompleted[item.contestID] ||
-               !joinContest[item.contestID]) && (
-               <Link to={`/contest/${item.collectionName}`}>
-                 <button className="font-Noto bg-slate-600 p-1 text-white rounded-md ">
-                   Join
-                 </button>
-               </Link>
-             )}
-             {isCompleted[item.contestID] && (
-               <button className="font-Noto bg-slate-600 p-1 text-white rounded-md ">
-                 Participated
-               </button>
-             )}
-           </div>
-         </div>
-       </div>
-     ))}
-   </div>
- );
+              {!isCompleted[item.contestID] && joinContest[item.contestID] && (
+                <Link to={`/contest/${item.collectionName}`}>
+                  <button className="font-Noto bg-slate-600 p-1 text-white rounded-md ">
+                    Join
+                  </button>
+                </Link>
+              )}
+              {isCompleted[item.contestID] && (
+                <button className="font-Noto bg-slate-600 p-1 text-white rounded-md ">
+                  Participated
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }

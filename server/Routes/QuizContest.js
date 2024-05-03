@@ -100,7 +100,7 @@ router.get("/contest_lists", async (req, res) => {
     const contests = await db.listCollections({}, { nameOnly: true }).toArray();
     const targetCollection = contests
       .map((collection) => collection.name)
-      .filter((name) => name.startsWith("APR"));
+      .filter((name) => name.startsWith("MAY"));
 
     //find Contest Info
     const contestsInfo = [];

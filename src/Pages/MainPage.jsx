@@ -100,6 +100,7 @@ export default function MainPage() {
 
     const { image, firstname} = userData;
 
+    console.log("img",image);
   // JSX Rendering
   return (
     <>
@@ -107,9 +108,9 @@ export default function MainPage() {
         <Link to="/dashboard">
           <div className="absolute top-2 right-2 flex items-center gap-1">
             <img
-              src={`${DEV_URL}/images/${image}`}
-              alt=""
-              className="lg:w-10 w-8 rounded-full p-1  shadow-black shadow-md"
+              src={`${DEV_URL}/public/images/${image}`}
+              alt="AC"
+              className="lg:w-10 w-8 h-8 lg:h-10 rounded-full p-1 flex items-center justify-center text-lime-50 border shadow-black shadow-md"
             />
             <p className="font-Noto text-yellow-300 hidden">{firstname}</p>
           </div>
