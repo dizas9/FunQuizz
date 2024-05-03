@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { DEV_URL } from "../API";
 import axios from "axios";
+import DashboardSkeleton from "./skeleton/DashboardSkeleton";
 
 export default function PrivateRoute({ children, message }) {
   const [auth, setAuth] = useState(false);
@@ -34,7 +35,11 @@ export default function PrivateRoute({ children, message }) {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <DashboardSkeleton/>
+      </>
+    );
   }
 
   return auth ? (

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { userFetch } from "../lib/FetchUser";
 import UploadProfileImage from "../components/UploadProfileImage";
+import DashboardSkeleton from "../components/skeleton/DashboardSkeleton";
 
 export default function Dashboard() {
   const [userData, setUserData] = useState({});
@@ -51,12 +52,13 @@ export default function Dashboard() {
 
   return (
     <>
+      
       <div className=" w-[90%]">
         <div className="flex flex-col gap-2 items-center ">
           <img
-            src={`${DEV_URL}/images/${image}`}
+            src={`${DEV_URL}/public/images/${image}`}
             alt=""
-            className="w-20 border-2 rounded-full p-1"
+            className="w-20 h-20 border-2 rounded-full p-1"
           />
         </div>
       </div>
@@ -84,7 +86,6 @@ export default function Dashboard() {
         >
           Logout
         </button>
-      </div>
-    </>
+      </div></>
   );
 }

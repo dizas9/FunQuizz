@@ -4,6 +4,7 @@ import { DEV_URL } from "../API";
 import axios from "axios";
 
 import { Link } from "react-router-dom";
+import ContestSkeleton from "./skeleton/ContestSkeleton";
 
 export default function Upcoming() {
   const [upcomingContest, setUpcomingContests] = useState([]);
@@ -105,16 +106,7 @@ export default function Upcoming() {
       <hr className="bg-slate-50 lg:w-3/4 w-1/2 my-2 " />
 
       {upcomingContest.length === 0 ? (
-        <>
-          <div className="animate-pulse lg:w-1/2 w-3/4 bg-slate-600 m-2 h-24 flex flex-col rounded-md  items-center py-2 gap-2">
-            <p className="w-[90%] h-7 bg-slate-500 animate-pulse"></p>
-            <p className="w-[90%] h-7 bg-slate-500 animate-pulse"></p>
-          </div>
-          <div className="animate-pulse lg:w-1/2 w-3/4 bg-slate-600 m-2 h-24 flex flex-col rounded-md  items-center py-2 gap-2">
-            <p className="w-[90%] h-7 bg-slate-500 animate-pulse"></p>
-            <p className="w-[90%] h-7 bg-slate-500 animate-pulse"></p>
-          </div>
-        </>
+        <ContestSkeleton/>
       ) : (
         ""
       )}

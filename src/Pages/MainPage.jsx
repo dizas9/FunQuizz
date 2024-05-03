@@ -112,7 +112,7 @@ export default function MainPage() {
               alt="AC"
               className="lg:w-10 w-8 h-8 lg:h-10 rounded-full p-1 flex items-center justify-center text-lime-50 border shadow-black shadow-md"
             />
-            <p className="font-Noto text-yellow-300 hidden">{firstname}</p>
+            <p className="font-Noto text-yellow-300 hidden text-xs lg:flex">{firstname}</p>
           </div>
         </Link>
       ) : (
