@@ -155,9 +155,24 @@ router.get("/completed", isAuthenticated, async (req, res) => {
   try {
     const userId = req.user.id;
 
-    const complete = await ScoreData.find({userId});
+    const complete = await ScoreData.find({ userId });
 
     res.status(200).json({ complete: complete });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.get("/score", isAuthenticated, async (req, res) => {
+  const { collectionName, contestID } = req.query;
+
+  console.log(collectionName);
+  try {
+    const userId = req.user.id;
+    const userScore = await ScoreData.find({ userId, contestID });
+
+    res.status(200).json({ score: userScore });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ message: "Internal server error" });

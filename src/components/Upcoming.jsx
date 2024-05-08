@@ -5,15 +5,15 @@ import axios from "axios";
 
 import { Link } from "react-router-dom";
 import ContestSkeleton from "./skeleton/ContestSkeleton";
+import ServerInactiveToast from "./ServerInactiveToast";
 
 export default function Upcoming() {
   const [upcomingContest, setUpcomingContests] = useState([]);
   const [joinContest, setJoinContest] = useState(false);
-
+  const [toast, setToast] = useState(false);
   const [isCompleted, setIsCompleted] = useState({});
 
   // console.log(upcomingContest);
-
 
   useEffect(() => {
     const fetchData = () => {
@@ -96,20 +96,28 @@ export default function Upcoming() {
     isComplete();
   }, []);
 
- 
+  useEffect(() => {
+    setTimeout(() => {
+      setToast(true);
+    }, 5000);
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setToast(false);
+    }, 15000);
+  }, []);
 
   return (
     <div className="flex flex-col h-fit items-center">
+      {/* Toast for Server Inactivity */}
+      {toast && upcomingContest.length === 0 && <ServerInactiveToast />}
       <p className="lg:text-2xl text-xl font-semibold text-slate-100 font-josefin lg:my-2 ">
         This week upcoming contests
       </p>
       <hr className="bg-slate-50 lg:w-3/4 w-1/2 my-2 " />
 
-      {upcomingContest.length === 0 ? (
-        <ContestSkeleton/>
-      ) : (
-        ""
-      )}
+      {upcomingContest.length === 0 ? <ContestSkeleton /> : ""}
       {/* Contest Card */}
       {upcomingContest.map((item) => (
         <div

@@ -100,7 +100,7 @@ export default function MainPage() {
 
     const { image, firstname} = userData;
 
-    console.log("img",image);
+  
   // JSX Rendering
   return (
     <>
