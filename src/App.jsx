@@ -12,6 +12,9 @@ import Dashboard from "./Pages/Dashboard";
 import PrivateRoute from "./components/protected";
 import UploadProfileImage from "./components/UploadProfileImage";
 import ContestPage from "./BCSquizes/ContestPage";
+import TriviaAPI from "./Pages/TriviaAPI";
+import WarmUp from "./components/WarmUp";
+import PracticePage from "./BCSquizes/PracticePage";
 
 export default function App() {
   const { auth } = useIsAuth();
@@ -39,6 +42,8 @@ export default function App() {
             />
             <Route path="/upload_image" element={<UploadProfileImage />} />
             <Route path="/test" element={<QuizTest />} />
+            <Route path="/trivia" element={<TriviaAPI />} />
+            <Route path="/bcsPractice" element={<WarmUp />} />
             <Route path="/timeout" element={<TimeoutPage />} />
             <Route path="/result" element={<ResultPage />} />
 
@@ -52,6 +57,8 @@ export default function App() {
                 </PrivateRoute>
               }
             />
+
+            <Route path="/practice/:name" element={<PracticePage />} />
           </Routes>
         </div>
       </div>

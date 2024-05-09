@@ -69,6 +69,22 @@ router.get("/quizContest", isAuthenticated, async (req, res) => {
   }
 });
 
+
+//get practice questions
+router.get("/practice", async (req, res) => {
+  const { collectionName } = req.query;
+  console.log(collectionName);
+  try {
+    const db = await connectDB();
+    const questions = await db.collection(collectionName).find().toArray();
+
+    res.json(questions);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 //handle user's answers submission
 router.post("/submitAnswer", isAuthenticated, async (req, res) => {
   try {
@@ -173,6 +189,68 @@ router.get("/score", isAuthenticated, async (req, res) => {
     const userScore = await ScoreData.find({ userId, contestID });
 
     res.status(200).json({ score: userScore });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+// practice quiz
+
+router.get("/practice_lists", async (req, res) => {
+
+  try {
+    const db = await connectDB();
+
+    const contests = await db.listCollections({}, { nameOnly: true }).toArray();
+    const targetCollection = contests
+      .map((collection) => collection.name)
+      .filter((name) => name.includes("con0"));
+
+    //find Contest Info
+    const contestsInfo = [];
+
+    for (let i = 0; i < targetCollection.length; i++) {
+      const contest = targetCollection[i];
+      const collections = await db.collection(contest).find().toArray();
+      const schedule = collections.map(
+        ({
+          month,
+          date,
+          day,
+          hour,
+          minute,
+          contestID,
+          DactiveMonth,
+          DactiveHr,
+          DactiveDate,
+          DactiveDay,
+        }) => ({
+          collectionName: contest,
+          month,
+          date,
+          day,
+          hour,
+          minute,
+          DactiveMonth,
+          DactiveHr,
+          DactiveDate,
+          DactiveDay,
+          contestID,
+        })
+      );
+
+      for (let j = 0; j < 1; j++) {
+        const info = schedule[j];
+
+        contestsInfo.push(info);
+      }
+    }
+
+    res.status(200).json({
+      schedule: contestsInfo,
+    });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ message: "Internal server error" });

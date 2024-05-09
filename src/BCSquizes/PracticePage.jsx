@@ -6,7 +6,7 @@ import { BiSolidChevronRight } from "react-icons/bi";
 import { useNavigate, useParams } from "react-router-dom";
 import TestSkeleton from "../components/skeleton/TestSkeleton";
 
-export default function ContestPage() {
+export default function PracticePage() {
   const [contestQuestion, setContestQuestion] = useState([]);
   const [contestOption, setContestOption] = useState([]);
   const [correctOption, setCorrectOption] = useState([]);
@@ -30,7 +30,7 @@ export default function ContestPage() {
       const token = localStorage.getItem("token");
       try {
         const response = await axios.get(
-          `${DEV_URL}/api/quiz/quizContest?collectionName=${name}`,
+          `${DEV_URL}/api/quiz/practice?collectionName=${name}`,
           {
             headers: {
               "x-auth-token": token,
@@ -110,30 +110,10 @@ export default function ContestPage() {
     let wrongQAS = wrongIdx.map((idx) => contestQuestion[idx]);
     setWrongQA(wrongQAS);
 
-     const token = localStorage.getItem("token");
-     const ID = contestId;
-
-     axios
-       .post(
-         `${DEV_URL}/api/quiz/submitAnswer`,
-         { scores: score, ID },
-         {
-           headers: { "x-auth-token": token },
-           withCredentials: true,
-         }
-       )
-       .then((response) => {
-         if (response.status === 200) {
-           navigate("/result", {
-             state: { score, wrongQAS, fromResult: true },
-           });
-         }
-       })
-       .catch((error) => {
-         console.log(error.response.data);
-       });
+    navigate("/result", {
+      state: { score, wrongQAS, fromResult: true },
+    });
   }
-
 
   return (
     <>
