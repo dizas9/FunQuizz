@@ -43,7 +43,7 @@ export default function MainPage() {
     <>
       {auth ? (
         <Link to="/dashboard">
-          <div className="absolute lg:top-2 top-[11%] lg:right-2 right-[50%] items-center gap-1 shadow-black shadow-md px-2 rounded-xl lg:flex hidden">
+          <div className="absolute lg:top-2 top-[11%] lg:right-2 right-[30vw] items-center gap-1 shadow-black shadow-md px-2 rounded-xl lg:flex">
             <p className="font-Noto text-yellow-300 text-xs lg:flex p-1 ">
               Welcome back , {firstname}
             </p>
