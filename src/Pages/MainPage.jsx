@@ -43,9 +43,9 @@ export default function MainPage() {
     <>
       {auth ? (
         <Link to="/dashboard">
-          <div className="absolute lg:top-2 top-1 right-2 flex items-center gap-1 shadow-black shadow-md px-2 rounded-xl">
+          <div className="absolute lg:top-2 top-[11%] lg:right-2 right-[50%] items-center gap-1 shadow-black shadow-md px-2 rounded-xl lg:flex hidden">
             <p className="font-Noto text-yellow-300 text-xs lg:flex p-1 ">
-              Hi, {firstname}
+              Welcome back , {firstname}
             </p>
           </div>
         </Link>
