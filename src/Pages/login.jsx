@@ -92,7 +92,7 @@ export default function Login() {
         onSubmit={handleSubmit}
       >
         <p className="text-center text-white font-Noto font-semibold mb-2">
-          Sign in
+          Login in
         </p>
         <div className="w-full h-fit flex flex-col py-2 px-1 gap-1 lg:gap-3">
           <label htmlFor="email" className="text-yellow-300 font-Noto">
