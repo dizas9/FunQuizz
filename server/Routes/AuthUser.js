@@ -9,22 +9,7 @@ const path = require("path");
 
 const User = require("../models/user");
 
-//multer file upload middleware
 
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, path.join(__dirname, "public", "images"));
-//   },
-//   filename: (req, file, cb) => {
-//     cb(
-//       null,
-//       file.fieldname + "_" + Date.now() + path.extname(file.originalname)
-//     );
-//   },
-// });
-
-// const upload = multer({ storage: storage });
 
 //blacklist array for invlid token
 const blacklistedTokens = [];
@@ -65,30 +50,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-//upload image
-// router.post("/imageUpload", upload.single("image"), async (req, res) => {
-//   const image = req.file ? req.file.filename : null;
- 
 
-//   try {
-//     const user = await User.findById(req.user.id);
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-//     // Check if the user already has a profile
-//     let avater = await ProfileData.findOne({ users: user._id });
-
-//     // If the user doesn't have a profile, create one
-//     if (!avater) {
-//       avater = new ProfileData({ users: user._id });
-//     }
-//     avater.image = image;
-//     await avater.save();
-//     return res.status(200).json({ message: "Image Saved" });
-//   } catch (error) {
-//     return res.status(500).send("Server Error: " + error.message);
-//   }
-// });
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;

@@ -52,7 +52,7 @@ export default function Register() {
     axios
       .post(`${DEV_URL}/api/user/register`, formDataSend, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       })
       .then((res) => {
