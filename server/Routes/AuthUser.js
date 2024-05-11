@@ -32,7 +32,7 @@ const blacklistedTokens = [];
 router.post("/register", upload.single("image"), async (req, res) => {
   const { firstname, lastname, email, password, gender, age, school, bio } =
     req.body;
-    const image = req.file ? req.file.filename : null;
+    // const image = req.file ? req.file.filename : null;
 
   try {
     //check user if exists
@@ -49,7 +49,7 @@ router.post("/register", upload.single("image"), async (req, res) => {
       age,
       school,
       bio,
-      image
+     
     });
     //hashed password
     const salt = await bcrypt.genSalt(10);

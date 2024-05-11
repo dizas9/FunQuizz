@@ -13,7 +13,7 @@ export default function Register() {
     gender: "",
     school: "",
     bio: "",
-    image: "",
+  
   });
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ export default function Register() {
     formDataSend.append("gender", formData.gender);
     formDataSend.append("school", formData.school);
     formDataSend.append("bio", formData.bio);
-    formDataSend.append("image", formData.image);
+   
 
     // send Post request to server
     axios
@@ -243,18 +243,7 @@ export default function Register() {
 
         {step === 3 && (
           <>
-            <div className="w-full h-fit flex flex-col py-2 px-1 gap-1 lg:gap-3">
-              <label htmlFor="age" className="text-yellow-300 font-Noto">
-                Upload profile image
-              </label>
-              <input
-                type="file"
-                name="image"
-                accept="img/*"
-                onChange={handleChange}
-                className="bg-[#3E3232]"
-              />
-            </div>
+            
 
             <div className="w-full h-fit flex flex-col py-2 px-1 gap-1 lg:gap-3">
               <label htmlFor="bio" className="text-yellow-300 font-Noto">
