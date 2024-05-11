@@ -96,18 +96,18 @@ export default function Dashboard() {
       });
   }, []);
 
-  const { image, firstname } = userData;
+  const { firstname } = userData;
 
   return (
     <>
       <div className=" w-[90%]">
-        <div className="flex flex-col gap-2 items-center ">
+        {/* <div className="flex flex-col gap-2 items-center ">
           <img
             src={`${DEV_URL}/public/images/${image}`}
             alt=""
             className="w-20 h-20 border-2 rounded-full p-1"
           />
-        </div>
+        </div> */}
       </div>
       <div className="bg-[#c6c6d931] w-[90%] h-fit flex flex-col p-2 rounded-md shadow-sm shadow-black">
         <div className="p-2 flex w-full">

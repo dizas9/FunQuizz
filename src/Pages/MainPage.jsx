@@ -43,14 +43,9 @@ export default function MainPage() {
     <>
       {auth ? (
         <Link to="/dashboard">
-          <div className="absolute top-2 right-2 flex items-center gap-1">
-            <img
-              src={`${DEV_URL}/public/images/${image}`}
-              alt="AC"
-              className="lg:w-10 w-8 h-8 lg:h-10 rounded-full p-1 flex items-center justify-center text-lime-50 border shadow-black shadow-md"
-            />
-            <p className="font-Noto text-yellow-300 hidden text-xs lg:flex">
-              {firstname}
+          <div className="absolute lg:top-2 top-1 right-2 flex items-center gap-1 shadow-black shadow-md px-2 rounded-xl">
+            <p className="font-Noto text-yellow-300 text-xs lg:flex p-1 ">
+              Hi, {firstname}
             </p>
           </div>
         </Link>
