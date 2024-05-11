@@ -12,24 +12,24 @@ const User = require("../models/user");
 //multer file upload middleware
 
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "public", "images"));
-  },
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, path.join(__dirname, "public", "images"));
+//   },
+//   filename: (req, file, cb) => {
+//     cb(
+//       null,
+//       file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+//     );
+//   },
+// });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
 //blacklist array for invlid token
 const blacklistedTokens = [];
 
-router.post("/register", upload.single("image"), async (req, res) => {
+router.post("/register", async (req, res) => {
   const { firstname, lastname, email, password, gender, age, school, bio } =
     req.body;
     // const image = req.file ? req.file.filename : null;

@@ -161,14 +161,14 @@ export default function Register() {
             </div>
             <div className="flex gap-2 justify-end">
               <button
-                className=" bg-red-500 font-Noto rounded-md w-fit h-[4vh] lg:h-[6vh] mt-2 text-white p-2"
+                className=" bg-red-500 font-Noto rounded-md w-fit h-[4vh] lg:h-[6vh] mt-2 text-white px-1"
                 onClick={handleContinue}
               >
                 Continue
               </button>
 
               <button
-                className=" bg-red-500 font-Noto rounded-md w-fit h-[4vh] lg:h-[6vh] mt-2 text-white p-2"
+                className=" bg-red-500 font-Noto rounded-md w-fit h-[4vh] lg:h-[6vh] mt-2 text-white px-1"
                 onClick={() => {
                   navigate("/");
                 }}
@@ -223,14 +223,14 @@ export default function Register() {
             </div>
             <div className="flex gap-2 justify-end">
               <button
-                className=" bg-red-500 font-Noto rounded-md w-fit h-[4vh] lg:h-[6vh] mt-2 text-white p-2"
+                className=" bg-red-500 font-Noto rounded-md w-fit h-[4vh] lg:h-[6vh] mt-2 text-white px-1"
                 onClick={handleContinue}
               >
                 Continue
               </button>
 
               <button
-                className=" bg-red-500 font-Noto rounded-md w-fit h-[4vh] lg:h-[6vh] mt-2 text-white p-2"
+                className=" bg-red-500 font-Noto rounded-md w-fit h-[4vh] lg:h-[6vh] mt-2 text-white px-1"
                 onClick={() => {
                   navigate("/");
                 }}
