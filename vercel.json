@@ -1,37 +1,73 @@
 {
   "rewrites": [
     {
+      "source": "/api/user",
+      "destination": "/api/user"
+    },
+    {
+      "source": "/api/account",
+      "destination": "/api/account"
+    },
+    {
+      "source": "/api/quiz",
+      "destination": "/api/quiz"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
   ],
-  "routes": [
+  "headers": [
     {
-      "src": "/api/user",
-      "methods": ["GET", "POST"],
-      "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST",
-        "Access-Control-Allow-Headers": "Content-Type"
-      }
+      "source": "/api/user",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type"
+        }
+      ]
     },
     {
-      "src": "/api/account",
-      "methods": ["GET", "POST"],
-      "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST",
-        "Access-Control-Allow-Headers": "Content-Type"
-      }
+      "source": "/api/account",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type"
+        }
+      ]
     },
     {
-      "src": "/api/quiz",
-      "methods": ["GET", "POST"],
-      "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST",
-        "Access-Control-Allow-Headers": "Content-Type"
-      }
+      "source": "/api/quiz",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type"
+        }
+      ]
     }
   ]
 }
