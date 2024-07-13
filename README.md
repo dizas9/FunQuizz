@@ -8,6 +8,9 @@
 </div>
 
 <!---Table of Contents-->
+<h3>Please Login with following credential for Demo Purpose</h3>
+<p><span>email: </span> <span>visitor@gmail.com</span></p>
+<p><span>password: </span> <span>1234</span></p>
 
 <h3>Table of Content</h3>
  <ol>
